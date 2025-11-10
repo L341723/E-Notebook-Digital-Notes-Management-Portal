@@ -78,3 +78,14 @@ Students can:
 🛠 Installation / Running
 
 No installation needed!
+
+
+📸 Screenshots (Add Your Images)
+
+You can add screenshots like this:
+
+![Login Page]<img width="1919" height="913" alt="Screenshot 2025-11-10 170031" src="https://github.com/user-attachments/assets/99c0d169-6b4f-413c-aaa4-db18bf450c07" />
+
+
+![Dashboard]<img width="1918" height="915" alt="Screenshot 2025-11-10 170121" src="https://github.com/user-attachments/assets/54368370-ebeb-4591-9ab6-34833facda59" />
+
