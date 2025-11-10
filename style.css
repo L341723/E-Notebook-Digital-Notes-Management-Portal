@@ -1,0 +1,304 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  /* layered gradient + embedded SVG college template (data URI) */
+  background:
+    linear-gradient(135deg, rgba(255,247,241,0.92) 0%, rgba(232,246,255,0.92) 40%, rgba(255,254,246,0.92) 100%),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='800' viewBox='0 0 1200 800'><defs><linearGradient id='g' x1='0' x2='1'><stop offset='0' stop-color='%23fff7f1'/><stop offset='1' stop-color='%23e8f6ff'/></linearGradient></defs><rect width='100%25' height='100%25' fill='url(%23g)'/><g opacity='0.06' transform='translate(0,40)'><text x='60%25' y='18%25' font-size='120' fill='%230055aa' font-weight='800' text-anchor='middle' style='letter-spacing:12px'>COLLEGE NOTES</text><g transform='translate(64,220)'><rect x='40' y='40' width='220' height='18' rx='4' fill='%23ff7a18'/><rect x='40' y='64' width='220' height='14' rx='4' fill='%23ff4e50'/><rect x='40' y='84' width='220' height='12' rx='4' fill='%23ff6fb3'/><g transform='translate(320,0)'><polygon points='0,60 40,20 80,60 40,40' fill='%23003366'/><rect x='28' y='40' width='24' height='6' fill='%23003366'/></g></g></g></svg>") no-repeat center top / cover;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Hide large watermark on dashboard (body.dashboard) for clarity */
+body.dashboard::before { display: none; }
+
+/* Ensure html/body fill viewport and prevent page scrolling on login */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body.login-page {
+  height: 100vh;              /* full viewport */
+  min-height: 100vh;
+  overflow: hidden;           /* prevent page scroll */
+  display: flex;
+  align-items: center;        /* vertical center */
+  justify-content: center;    /* horizontal center */
+  background: url("https://i.postimg.cc/gcLYPhSP/Gemini-Generated-Image-jkyd4ljkyd4ljkyd.png") center/cover fixed no-repeat;
+  position: relative;
+}
+
+/* Login page: photographic background — image displayed fully opaque (no overlay) */
+body.login-page {
+  background: url("https://i.postimg.cc/gcLYPhSP/Gemini-Generated-Image-jkyd4ljkyd4ljkyd.png") center/cover no-repeat;
+  background-color: #fff;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Keep the login card usable on small screens without making the page scroll */
+.login-container {
+  width: 360px;
+  max-width: 92%;
+  max-height: calc(100vh - 48px); /* keep some viewport padding */
+  overflow: auto;                  /* internal scroll if content overflows */
+  -webkit-overflow-scrolling: touch;
+  margin: 0;                        /* centered by flexbox parent */
+  padding: 24px;
+  background: #ffffff;              /* ensure readability */
+  border-left: 8px solid #ff7a18;
+  border-radius: 14px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.18);
+  z-index: 2;
+}
+
+/* Improve table header visibility: sticky header when scrolling */
+.table-wrap {
+  overflow:auto;
+  max-height: 56vh;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.03);
+}
+.notes-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  backdrop-filter: blur(4px);
+}
+
+/* Header: bright gradient and lifted */
+header {
+  background: linear-gradient(90deg, #ff7a18 0%, #ff4e50 50%, #ff6fb3 100%);
+  color: #fff;
+  padding: 18px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 1; /* above watermark */
+  box-shadow: 0 6px 18px rgba(255, 110, 110, 0.12);
+}
+
+/* Login card */
+.login-container {
+  width: 360px;
+  background: #ffffff; /* solid white */
+  margin: 80px auto;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.18);
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  border-left: 8px solid #ff7a18; /* accent */
+  color: #0b2233;
+}
+
+/* Inputs and selects */
+.login-container input,
+.login-container select {
+  width: 100%;
+  padding: 10px;
+  margin: 12px 0;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  outline: none;
+  box-sizing: border-box;
+  transition: box-shadow .15s ease, border-color .15s ease;
+  background: #fff;
+}
+
+.login-container input:focus,
+.login-container select:focus {
+  box-shadow: 0 6px 18px rgba(0, 85, 170, 0.08);
+  border-color: #5fb3ff;
+}
+
+/* Buttons (global) */
+button {
+  cursor: pointer;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 700;
+  transition: transform .08s ease, box-shadow .12s ease;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+/* Primary action (login/upload) */
+.login-container button,
+#uploadSection button {
+  width: 100%;
+  background: linear-gradient(90deg, #ff7a18 0%, #ff4e50 60%, #ff6fb3 100%);
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(255, 89, 89, 0.12);
+}
+
+/* Page sections */
+section {
+  margin: 30px auto;
+  max-width: 1000px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(250,250,255,0.85));
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,85,170,0.04);
+  position: relative;
+  z-index: 1;
+  border-left: 6px solid rgba(255,122,24,0.9);
+}
+
+/* New layout for dashboard (sidebar + main) */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 26px;
+  background: linear-gradient(90deg,#003366 0%, #0055aa 60%);
+  color: #fff;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+.brand { display:flex; gap:12px; align-items:center; }
+.brand img { width:48px; height:48px; border-radius:8px; background:#fff; padding:2px; }
+.brand h1 { margin:0; font-size:1.05rem; }
+.brand .sub { font-size:0.8rem; opacity:0.9; margin-top:2px; }
+
+.top-actions { display:flex; gap:12px; align-items:center; }
+.dept-chip { background: rgba(255,255,255,0.12); padding:6px 10px; border-radius:20px; font-weight:700; }
+.logout { background:#ff7a18; border-radius:8px; padding:8px 12px; color:#fff; border:0; }
+
+/* Layout */
+.layout { display:flex; gap:28px; max-width:1400px; margin:32px auto; padding:0 18px; }
+/* reduce sidebar to give more room to main content */
+.sidebar { width:220px; display:flex; flex-direction:column; gap:14px; }
+
+/* Upload grid — make left (dropzone) larger and right controls wider */
+.upload-grid { display:grid; grid-template-columns: 1.4fr 420px; gap:22px; align-items:center; }
+
+/* Dropzone: add spacing under the choose button so "Supported" sits further below */
+.dropzone button { margin-top:14px; background:linear-gradient(90deg,#22c1c3,#fdbb2d); color:#003; padding:8px 12px; border-radius:8px; border:none; font-weight:700; }
+
+/* make the small 'Supported' hint sit a bit lower for clearer gap */
+.dropzone .muted { display:block; margin-top:14px; color: rgba(3, 52, 76, 0.8); font-size:0.9rem; }
+
+/* Slightly increase card padding for larger frames */
+.card { background: linear-gradient(180deg,rgba(255,255,255,0.98), rgba(250,250,255,0.95)); padding:20px; border-radius:12px; box-shadow:0 10px 34px rgba(0,85,170,0.04); }
+
+/* Cards & small card */
+.card { background: linear-gradient(180deg,rgba(255,255,255,0.98), rgba(250,250,255,0.95)); padding:18px; border-radius:12px; box-shadow:0 8px 30px rgba(0,85,170,0.04); }
+.card.small { padding:14px; }
+
+/* stats */
+.stats { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:12px; }
+.stats .muted { opacity:0.7; font-size:0.85rem; }
+
+/* links */
+.links { list-style:none; padding:0; margin:8px 0 0 0; }
+.links li { margin:6px 0; }
+.links a { color:#003366; text-decoration:none; font-weight:600; }
+
+/* Upload grid */
+.upload-grid { display:grid; grid-template-columns: 1fr 320px; gap:18px; align-items:center; }
+.dropzone { border:2px dashed rgba(0,51,102,0.12); padding:18px; border-radius:10px; text-align:center; background:linear-gradient(180deg, rgba(240,250,255,0.6), rgba(255,255,255,0.6)); }
+.dropzone p { margin:0 0 8px 0; color:#003366; font-weight:700; }
+.dropzone input[type=file] { display:none; }
+.dropzone button { margin-top:10px; background:linear-gradient(90deg,#22c1c3,#fdbb2d); color:#003; padding:8px 12px; border-radius:8px; border:none; font-weight:700; }
+
+.upload-controls h2 { margin:0 0 6px 0; }
+.controls-row { display:flex; gap:10px; margin-top:12px; }
+.controls-row input { flex:1; padding:8px 10px; border-radius:8px; border:1px solid #e6eef8; }
+.controls-row button { width:160px; background:linear-gradient(90deg,#ff7a18,#ff6fb3); }
+
+/* table head row */
+.table-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; gap:12px; }
+.table-head .right { display:flex; gap:8px; align-items:center; }
+
+/* table */
+table thead th { background:linear-gradient(90deg,rgba(0,85,170,0.06),rgba(255,122,24,0.03)); }
+tbody tr:hover { background:rgba(0,85,170,0.03); }
+td { vertical-align:middle; }
+
+/* Structural & clarity improvements for dashboard layout */
+.brand-text { display:flex; flex-direction:column; gap:2px; }
+.sub { font-size:0.85rem; color:rgba(255,255,255,0.92); opacity:0.95; }
+
+.stat-item { display:flex; flex-direction:column; align-items:flex-start; gap:4px; }
+.stat-value { font-size:1.4rem; font-weight:800; color:#003366; }
+.stat-label { font-size:0.85rem; color:#4a5568; }
+
+.drop-title { font-weight:800; color:#003366; margin:0; }
+.drop-sub { margin:6px 0; color:#2d5c7a; }
+
+.upload-preview { margin-top:12px; background:rgba(240,248,255,0.9); padding:8px; border-radius:8px; min-height:40px; max-height:140px; overflow:auto; border:1px solid #e6f2ff; }
+
+.primary { background: linear-gradient(90deg,#ff7a18,#ff6fb3); color:#fff; border:0; padding:8px 12px; border-radius:8px; font-weight:700; cursor:pointer; }
+.secondary { background: linear-gradient(90deg,#eef6ff,#e6f2ff); color:#003366; border:1px solid rgba(0,85,170,0.06); padding:8px 10px; border-radius:8px; cursor:pointer; }
+
+/* Notes table styling for clarity */
+.table-wrap { overflow:auto; }
+.notes-table { width:100%; border-collapse:collapse; min-width:720px; }
+.notes-table thead th { text-align:left; padding:12px 10px; font-weight:700; color:#103b57; border-bottom:2px solid rgba(0,0,0,0.04); background:linear-gradient(90deg, rgba(240,249,255,0.9), rgba(255,255,255,0.95)); }
+.notes-table tbody td { padding:12px 10px; border-bottom:1px solid rgba(0,0,0,0.04); color:#234; vertical-align:middle; }
+
+/* filename link button (clean look) */
+.link-btn { background:transparent; border:0; color:#0055aa; font-weight:700; cursor:pointer; padding:0; text-decoration:underline; }
+
+/* Download (green) and Delete (red) buttons in notes list */
+#notesList .download-btn {
+  background: linear-gradient(90deg, #28a745 0%, #2ecc71 100%);
+  color: #fff;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-weight: 700;
+  margin-right: 8px;
+  box-shadow: 0 6px 14px rgba(46,204,113,0.12);
+  transition: transform .08s ease, box-shadow .12s ease;
+}
+#notesList .download-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(40,167,69,0.14);
+}
+
+#notesList .delete-btn {
+  background: linear-gradient(90deg, #ff4d4f 0%, #c0392b 100%);
+  color: #fff;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-weight: 700;
+  box-shadow: 0 6px 14px rgba(255,77,77,0.12);
+  transition: transform .08s ease, box-shadow .12s ease;
+}
+#notesList .delete-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(192,57,43,0.14);
+}
+
+/* Empty state */
+#emptyState { padding:12px 6px; }
+
+/* Modal preview improvements */
+.modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.45); z-index:50; align-items:center; justify-content:center; padding:28px; }
+.modal .modal-content { background:#fff; width:min(900px,96%); border-radius:10px; padding:18px; position:relative; box-shadow:0 20px 60px rgba(0,0,0,0.2); }
+.modal .close { position:absolute; right:12px; top:12px; border:0; background:transparent; font-size:20px; cursor:pointer; }
+.preview-body { max-height:420px; overflow:auto; white-space:pre-wrap; padding:8px; border-radius:6px; background:#f8fbff; border:1px solid #eef6ff; }
+
+/* Responsiveness */
+@media (max-width: 900px) {
+  .layout { flex-direction:column; padding:0 12px; }
+  .sidebar { width:100%; order:2; }
+  .main { order:1; }
+  .upload-grid { grid-template-columns:1fr; }
+  .notes-table { min-width:100%; }
+}

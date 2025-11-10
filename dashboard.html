@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>E-Notebook Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="dashboard">
+  <header class="topbar" role="banner">
+    <div class="brand">
+      <img src="https://i.postimg.cc/j2QbDHJb/pragati-engineering-college-logo.jpg" alt="Pragati Engineering College logo" />
+      <div class="brand-text">
+        <h1 id="welcomeMsg">Welcome</h1>
+        <div class="sub">E-Notes Management Portal</div>
+      </div>
+    </div>
+
+    <div class="top-actions" role="navigation" aria-label="top actions">
+      <div class="dept-chip" id="deptChip">Dept: -</div>
+      <button class="logout" onclick="logout()">Logout</button>
+    </div>
+  </header>
+
+  <div class="layout" role="main">
+    <aside class="sidebar" aria-label="sidebar">
+      <div class="card small">
+        <h3 id="sidebarDept">Department</h3>
+        <p id="sidebarRole">Role: -</p>
+      </div>
+
+      <div class="card small stats" aria-hidden="false">
+        <div class="stat-item">
+          <div class="stat-value" id="notesCount">0</div>
+          <div class="stat-label muted">Notes</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="lastUpload">-</div>
+          <div class="stat-label muted">Last uploaded</div>
+        </div>
+      </div>
+
+      <nav class="card small quick-links" aria-label="quick links">
+        <h4>Quick Links</h4>
+        <ul class="links">
+          <li><a href="#">Courses</a></li>
+          <li><a href="#">Timetable</a></li>
+          <li><a href="#">Library</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <!-- Upload / Controls -->
+      <section class="card" id="uploadSection" aria-label="upload section">
+        <div class="upload-grid">
+          <div class="dropzone" id="dropzone" role="listbox" aria-label="file drop zone">
+            <p class="drop-title">Drag &amp; drop notes here</p>
+            <p class="drop-sub">or</p>
+            <input type="file" id="fileInput" multiple aria-label="choose files" />
+            <button class="primary" onclick="triggerFileInput()">Choose files</button>
+
+            <div class="muted small">Supported: any file (text content will be saved when readable)</div>
+          </div>
+
+          <div class="upload-controls">
+            <h2>Upload Notes</h2>
+            <p class="muted">Attach lecture notes, assignments or sample papers for the selected department.</p>
+
+            <div class="controls-row">
+              <input type="text" id="uploaderTag" placeholder="Tag (optional, e.g. 2025-JAN)" aria-label="tag" />
+              <button class="primary" onclick="uploadNotes()">Upload Selected</button>
+            </div>
+
+            <div id="uploadPreview" class="upload-preview muted small" aria-live="polite">No files selected</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Notes list -->
+      <section class="card" aria-label="notes list">
+        <div class="table-head">
+          <div class="left">
+            <h2>Available Notes</h2>
+            <div class="muted">Files stored for your department</div>
+          </div>
+
+          <div class="right">
+            <input type="text" id="searchInput" placeholder="Search filename or tag..." oninput="searchNotes()" aria-label="search notes" />
+            <select id="typeFilter" onchange="searchNotes()" aria-label="filter by type">
+              <option value="">All types</option>
+              <option value="pdf">PDF</option>
+              <option value="doc">DOC / DOCX</option>
+              <option value="txt">TXT</option>
+            </select>
+            <button class="secondary" onclick="sortNotes()" title="Sort by date">Sort ⤴️</button>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="notes-table" aria-describedby="notesCount">
+            <thead>
+              <tr>
+                <th>Filename</th>
+                <th>Type</th>
+                <th>Size</th>
+                <th>Uploaded</th>
+                <th>Tag</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="notesList">
+              <!-- populated by script.js -->
+            </tbody>
+          </table>
+
+          <p id="emptyState" class="muted small" style="display:none;">No notes available. Upload using the panel on the left.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Preview Modal -->
+  <div id="previewModal" class="modal" onclick="closePreview(event)" role="dialog" aria-modal="true" aria-labelledby="previewTitle" style="display:none;">
+    <div class="modal-content">
+      <button class="close" onclick="closePreview(event)" aria-label="Close">✕</button>
+      <h3 id="previewTitle"></h3>
+      <div id="previewBody" class="preview-body muted" tabindex="0"></div>
+      <div class="modal-actions">
+        <button class="download-btn" onclick="downloadNote()">Download</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

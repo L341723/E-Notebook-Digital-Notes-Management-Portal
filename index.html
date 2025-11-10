@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>E-Notebook Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-page">
+  <div class="login-container">
+    <h2>E-Notebook Login</h2>
+    <select id="role">
+      <option value="">-- Select Role --</option>
+      <option value="teacher">Teacher</option>
+      <option value="student">Student</option>
+    </select>
+    <select id="department">
+      <option value="">-- Select Department --</option>
+      <option value="CSE">CSE</option>
+      <option value="ECE">ECE</option>
+      <option value="MECH">MECH</option>
+      <option value="CIVIL">CIVIL</option>
+    </select>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
